@@ -1,9 +1,6 @@
 package io.wwan13.springrequestlogger.context;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.IOException;
 
 public record JsonContext(
         String value
@@ -16,15 +13,14 @@ public record JsonContext(
         if (value.isBlank()) {
             return "{}";
         }
-        JsonNode jsonNode = readValueWithExceptionHandling();
-        return jsonNode.toString();
+        return toJsonFormat(value);
     }
 
-    private JsonNode readValueWithExceptionHandling() {
+    private String toJsonFormat(String value) {
         try {
-            return objectMapper.readTree(value);
-        } catch (IOException e) {
-            throw new IllegalArgumentException("Cannot parsing json node");
+            return objectMapper.readTree(value).toString();
+        } catch (Exception e) {
+            return value;
         }
     }
 
