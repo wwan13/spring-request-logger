@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
-record JsonContext(
+public record JsonContext(
         String value
 ) {
 

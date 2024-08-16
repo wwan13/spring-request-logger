@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-record RequestContext(
+public record RequestContext(
         String method,
         String uri,
         HttpStatus status,
