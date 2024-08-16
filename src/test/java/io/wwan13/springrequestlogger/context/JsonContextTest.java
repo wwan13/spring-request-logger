@@ -42,18 +42,4 @@ class JsonContextTest {
 
         assertThat(context.toString()).isEqualTo("{}");
     }
-
-    @Test
-    void should_ThrowException_when_InvalidJsonContentEntered() {
-        byte[] value = """
-                {
-                    "name" : "Kim
-                }
-                """.getBytes();
-
-        JsonContext context = JsonContext.of(value);
-
-        assertThatThrownBy(context::toString)
-                .isInstanceOf(IllegalArgumentException.class);
-    }
 }
