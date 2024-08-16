@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter:2.7.13'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.13'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.13'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.8.2'
 }
 
 tasks.named('test') {
