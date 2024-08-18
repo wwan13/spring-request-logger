@@ -44,5 +44,6 @@ public class RequestLogger extends OncePerRequestFilter {
                 RequestContext.of(requestWrapper, responseWrapper, requestElapsed);
         String logMessage = logMessageFormat.apply(context);
         log.info(logMessage);
+        responseWrapper.copyBodyToResponse();
     }
 }
