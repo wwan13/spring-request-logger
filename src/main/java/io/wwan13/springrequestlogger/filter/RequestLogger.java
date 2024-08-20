@@ -46,4 +46,9 @@ public class RequestLogger extends OncePerRequestFilter {
         log.info(logMessage);
         responseWrapper.copyBodyToResponse();
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getRequestURI().startsWith("/api/actuator");
+    }
 }
