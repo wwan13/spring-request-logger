@@ -16,9 +16,13 @@ public class RequestLoggerRegistrar {
     @Bean
     FilterRegistrationBean<RequestLogger> requestLogger() {
         FilterRegistrationBean<RequestLogger> filterRegistration = new FilterRegistrationBean<>();
-        RequestLogger requestLogger = new RequestLogger(logMessageConfigurer.format());
+        LogProperties properties = new LogProperties(
+                logMessageConfigurer.format(),
+                logMessageConfigurer.excludePathPatterns()
+        );
+        RequestLogger logger = new RequestLogger(properties);
 
-        filterRegistration.setFilter(requestLogger);
+        filterRegistration.setFilter(logger);
         filterRegistration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return filterRegistration;
     }

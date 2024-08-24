@@ -1,8 +1,10 @@
 package io.wwan13.springrequestlogger.filter;
 
+import io.wwan13.springrequestlogger.configure.LogProperties;
 import io.wwan13.springrequestlogger.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -12,16 +14,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.function.Function;
 
 public class RequestLogger extends OncePerRequestFilter {
 
     private final static Logger log = LoggerFactory.getLogger(RequestLogger.class);
+    private final static AntPathMatcher matcher = new AntPathMatcher();
 
-    private final Function<RequestContext, String> logMessageFormat;
+    private final LogProperties properties;
 
-    public RequestLogger(Function<RequestContext, String> logMessageFormat) {
-        this.logMessageFormat = logMessageFormat;
+    public RequestLogger(LogProperties properties) {
+        this.properties = properties;
     }
 
     @Override
@@ -42,13 +44,15 @@ public class RequestLogger extends OncePerRequestFilter {
 
         RequestContext context =
                 RequestContext.of(requestWrapper, responseWrapper, requestElapsed);
-        String logMessage = logMessageFormat.apply(context);
+        String logMessage = properties.format().apply(context);
         log.info(logMessage);
         responseWrapper.copyBodyToResponse();
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return request.getRequestURI().startsWith("/api/actuator");
+        String requestUri = request.getRequestURI();
+        return properties.excludePathPatterns().stream()
+                .anyMatch(it -> matcher.match(it, requestUri));
     }
 }
