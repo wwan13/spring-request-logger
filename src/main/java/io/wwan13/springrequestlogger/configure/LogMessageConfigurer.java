@@ -10,7 +10,6 @@ public interface LogMessageConfigurer {
 
     default Function<RequestContext, String> format() {
         return requestContext -> """
-                \n
                 %s '%s' - %s (%.2f s)
                 >> Request Headers : %s
                 >> Request Params  : %s
