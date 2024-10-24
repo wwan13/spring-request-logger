@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.13'
+    id 'org.springframework.boot' version '3.3.4'
     id 'io.spring.dependency-management' version '1.1.6'
     id 'maven-publish'
 }
 
 group = 'io.wwan13'
-version = '0.0.7'
+version = '1.0.0'
 
 java {
     toolchain {
@@ -19,10 +19,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter:2.7.13'
+    implementation 'org.springframework.boot:spring-boot-starter:3.3.4'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.13'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.13'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.3.4'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.8.2'
 }
 
